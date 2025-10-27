@@ -1,6 +1,6 @@
 // Simple redirect to ZIP file
 document.getElementById('downloadBtn').addEventListener('click', function() {
-    window.location.href = 'files/your-file.zip';
+    window.location.href = 'files/app-release (2).zip';
 });
 
 // Auto-download function
