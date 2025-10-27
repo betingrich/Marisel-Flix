@@ -3,59 +3,676 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Download APK</title>
-    <link rel="stylesheet" href="style.css">
+    <title>ModZone - File Sharing</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #e1e5eb;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2c5aa0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #2c5aa0;
+        }
+        
+        .user-actions {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+        
+        .btn-primary {
+            background: #2c5aa0;
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: #f0f2f5;
+            color: #555;
+            border: 1px solid #ddd;
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .upload-section {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .section-title {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #2c5aa0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-title i {
+            margin-right: 10px;
+        }
+        
+        .upload-area {
+            border: 2px dashed #c1c9d2;
+            border-radius: 8px;
+            padding: 40px 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .upload-area:hover {
+            border-color: #2c5aa0;
+            background: #f8fafd;
+        }
+        
+        .upload-icon {
+            font-size: 48px;
+            color: #2c5aa0;
+            margin-bottom: 15px;
+        }
+        
+        .upload-text {
+            margin-bottom: 15px;
+            color: #666;
+        }
+        
+        .file-input {
+            display: none;
+        }
+        
+        .file-list {
+            margin-top: 20px;
+        }
+        
+        .file-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            background: #f8fafd;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+        
+        .file-icon {
+            width: 40px;
+            height: 40px;
+            background: #e1e8f0;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: #2c5aa0;
+        }
+        
+        .file-info {
+            flex: 1;
+        }
+        
+        .file-name {
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+        
+        .file-size {
+            font-size: 12px;
+            color: #777;
+        }
+        
+        .file-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .action-btn {
+            background: none;
+            border: none;
+            color: #2c5aa0;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .link-section {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .link-box {
+            background: #f8fafd;
+            border: 1px solid #e1e5eb;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .link-text {
+            flex: 1;
+            font-family: monospace;
+            font-size: 14px;
+            color: #333;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        .copy-btn {
+            background: #2c5aa0;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 8px 12px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        
+        .link-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .stats-section {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 40px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        
+        .stat-card {
+            text-align: center;
+            padding: 20px;
+            border-radius: 8px;
+            background: #f8fafd;
+        }
+        
+        .stat-value {
+            font-size: 32px;
+            font-weight: bold;
+            color: #2c5aa0;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .recent-files {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .file-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .file-table th {
+            text-align: left;
+            padding: 12px 15px;
+            border-bottom: 1px solid #e1e5eb;
+            color: #666;
+            font-weight: 500;
+        }
+        
+        .file-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #f0f2f5;
+        }
+        
+        .file-row:hover {
+            background: #f8fafd;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .status-active {
+            background: #e1f2e9;
+            color: #2a8350;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            border-top: 1px solid #e1e5eb;
+            color: #777;
+            font-size: 14px;
+        }
+        
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #2c5aa0;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 4px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <h1>Download Our App</h1>
+        <header>
+            <div class="logo">
+                <i class="fas fa-cloud-upload-alt"></i>
+                ModZone Share
+            </div>
+            <div class="nav-links">
+                <a href="#">Home</a>
+                <a href="#">My Files</a>
+                <a href="#">Shared</a>
+                <a href="#">Stats</a>
+            </div>
+            <div class="user-actions">
+                <button class="btn btn-secondary">Sign In</button>
+                <button class="btn btn-primary">Create Account</button>
+            </div>
+        </header>
         
-        <div class="app-info">
-            <div class="app-icon">📱</div>
-            <h2>My Awesome App</h2>
-            <p class="version">Version 1.0.0</p>
-            <p class="file-size">File size: ~25 MB</p>
-        </div>
-
-        <!-- Security Warning -->
-        <div class="warning">
-            <h3>⚠️ Download Notice</h3>
-            <p>Google Drive may show a warning page. Click "Download anyway" to proceed.</p>
-        </div>
-
-        <!-- Download Methods -->
-        <div class="download-options">
-            <button id="downloadBtn" class="download-button">
-                📥 Download APK Now
-            </button>
+        <div class="main-content">
+            <div class="upload-section">
+                <h2 class="section-title">
+                    <i class="fas fa-upload"></i>
+                    Upload Files
+                </h2>
+                
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-icon">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                    </div>
+                    <p class="upload-text">Drag & drop files here or click to browse</p>
+                    <button class="btn btn-primary">Select Files</button>
+                    <input type="file" class="file-input" id="fileInput" multiple>
+                </div>
+                
+                <div class="file-list" id="fileList">
+                    <!-- Files will appear here after upload -->
+                </div>
+            </div>
             
-            <button id="openDriveBtn" class="drive-button">
-                🔗 Open Google Drive Page
-            </button>
+            <div class="link-section">
+                <h2 class="section-title">
+                    <i class="fas fa-link"></i>
+                    Shareable Link
+                </h2>
+                
+                <p>Upload a file to generate a shareable download link</p>
+                
+                <div class="link-box" id="linkBox" style="display: none;">
+                    <div class="link-text" id="linkText">https://modzone.share/file/abc123xyz</div>
+                    <button class="copy-btn" id="copyBtn">
+                        <i class="fas fa-copy"></i> Copy
+                    </button>
+                </div>
+                
+                <div class="link-actions" id="linkActions" style="display: none;">
+                    <button class="btn btn-primary">
+                        <i class="fas fa-share-alt"></i> Share
+                    </button>
+                    <button class="btn btn-secondary">
+                        <i class="fas fa-qrcode"></i> QR Code
+                    </button>
+                    <button class="btn btn-secondary">
+                        <i class="fas fa-envelope"></i> Email
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="stats-section">
+            <h2 class="section-title">
+                <i class="fas fa-chart-bar"></i>
+                Your Stats
+            </h2>
             
-            <a href="https://drive.google.com/uc?export=download&id=1xlgBt350U5xLTxA0eXbbTuGr9XAaHvH_" 
-               class="download-link" 
-               target="_blank"
-               id="directLink">
-                Direct Download Link
-            </a>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value">24</div>
+                    <div class="stat-label">Files Uploaded</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">1.2GB</div>
+                    <div class="stat-label">Storage Used</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">156</div>
+                    <div class="stat-label">Total Downloads</div>
+                </div>
+            </div>
         </div>
-
-        <!-- Google Drive Instructions -->
-        <div class="instructions">
-            <h3>Download Instructions:</h3>
-            <ol>
-                <li>Click any download button above</li>
-                <li>Google Drive will show a warning page</li>
-                <li>Click "Download anyway" in the top right corner</li>
-                <li>The APK file will start downloading</li>
-            </ol>
+        
+        <div class="recent-files">
+            <h2 class="section-title">
+                <i class="fas fa-history"></i>
+                Recent Files
+            </h2>
+            
+            <table class="file-table">
+                <thead>
+                    <tr>
+                        <th>File Name</th>
+                        <th>Size</th>
+                        <th>Uploaded</th>
+                        <th>Downloads</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="file-row">
+                        <td>
+                            <div style="display: flex; align-items: center;">
+                                <div class="file-icon">
+                                    <i class="fas fa-file-pdf"></i>
+                                </div>
+                                <div>Project_Report.pdf</div>
+                            </div>
+                        </td>
+                        <td>4.2 MB</td>
+                        <td>2 days ago</td>
+                        <td>12</td>
+                        <td>
+                            <span class="status-badge status-active">Active</span>
+                        </td>
+                        <td>
+                            <button class="action-btn">
+                                <i class="fas fa-link"></i>
+                            </button>
+                            <button class="action-btn">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr class="file-row">
+                        <td>
+                            <div style="display: flex; align-items: center;">
+                                <div class="file-icon">
+                                    <i class="fas fa-file-image"></i>
+                                </div>
+                                <div>Vacation_Photos.zip</div>
+                            </div>
+                        </td>
+                        <td>86.5 MB</td>
+                        <td>1 week ago</td>
+                        <td>8</td>
+                        <td>
+                            <span class="status-badge status-active">Active</span>
+                        </td>
+                        <td>
+                            <button class="action-btn">
+                                <i class="fas fa-link"></i>
+                            </button>
+                            <button class="action-btn">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr class="file-row">
+                        <td>
+                            <div style="display: flex; align-items: center;">
+                                <div class="file-icon">
+                                    <i class="fas fa-file-video"></i>
+                                </div>
+                                <div>Presentation.mp4</div>
+                            </div>
+                        </td>
+                        <td>245.1 MB</td>
+                        <td>3 weeks ago</td>
+                        <td>23</td>
+                        <td>
+                            <span class="status-badge status-active">Active</span>
+                        </td>
+                        <td>
+                            <button class="action-btn">
+                                <i class="fas fa-link"></i>
+                            </button>
+                            <button class="action-btn">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-
-        <!-- Status Message -->
-        <div id="statusMessage" class="status-message"></div>
+        
+        <footer>
+            <p>ModZone Share &copy; 2023 | Secure file sharing for everyone</p>
+        </footer>
+        
+        <div class="toast" id="toast">Link copied to clipboard!</div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        // DOM Elements
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const fileList = document.getElementById('fileList');
+        const linkBox = document.getElementById('linkBox');
+        const linkText = document.getElementById('linkText');
+        const linkActions = document.getElementById('linkActions');
+        const copyBtn = document.getElementById('copyBtn');
+        const toast = document.getElementById('toast');
+        
+        // Event Listeners
+        uploadArea.addEventListener('click', () => {
+            fileInput.click();
+        });
+        
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = '#2c5aa0';
+            uploadArea.style.background = '#f8fafd';
+        });
+        
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.style.borderColor = '#c1c9d2';
+            uploadArea.style.background = 'white';
+        });
+        
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = '#c1c9d2';
+            uploadArea.style.background = 'white';
+            
+            if (e.dataTransfer.files.length) {
+                handleFiles(e.dataTransfer.files);
+            }
+        });
+        
+        fileInput.addEventListener('change', () => {
+            if (fileInput.files.length) {
+                handleFiles(fileInput.files);
+            }
+        });
+        
+        copyBtn.addEventListener('click', () => {
+            // Copy link to clipboard
+            navigator.clipboard.writeText(linkText.textContent)
+                .then(() => {
+                    showToast('Link copied to clipboard!');
+                })
+                .catch(err => {
+                    console.error('Failed to copy: ', err);
+                });
+        });
+        
+        // Functions
+        function handleFiles(files) {
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                addFileToList(file);
+            }
+            
+            // Show the shareable link section
+            linkBox.style.display = 'flex';
+            linkActions.style.display = 'flex';
+            Generate a random link
+            const randomId = Math.random().toString(36).substring(2, 10);
+            linkText.textContent = `https://modzone.share/file/${randomId}`;
+        }
+        
+        function addFileToList(file) {
+            const fileItem = document.createElement('div');
+            fileItem.className = 'file-item';
+            
+            const fileSize = formatFileSize(file.size);
+            const fileIcon = getFileIcon(file.name);
+            
+            fileItem.innerHTML = `
+                <div class="file-icon">
+                    <i class="${fileIcon}"></i>
+                </div>
+                <div class="file-info">
+                    <div class="file-name">${file.name}</div>
+                    <div class="file-size">${fileSize}</div>
+                </div>
+                <div class="file-actions">
+                    <button class="action-btn">
+                        <i class="fas fa-link"></i>
+                    </button>
+                    <button class="action-btn">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            `;
+            
+            fileList.appendChild(fileItem);
+        }
+        
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+        
+        function getFileIcon(filename) {
+            const ext = filename.split('.').pop().toLowerCase();
+            
+            if (['pdf'].includes(ext)) return 'fas fa-file-pdf';
+            if (['doc', 'docx'].includes(ext)) return 'fas fa-file-word';
+            if (['xls', 'xlsx'].includes(ext)) return 'fas fa-file-excel';
+            if (['ppt', 'pptx'].includes(ext)) return 'fas fa-file-powerpoint';
+            if (['zip', 'rar', '7z'].includes(ext)) return 'fas fa-file-archive';
+            if (['jpg', 'jpeg', 'png', 'gif', 'bmp'].includes(ext)) return 'fas fa-file-image';
+            if (['mp4', 'avi', 'mov', 'wmv'].includes(ext)) return 'fas fa-file-video';
+            if (['mp3', 'wav', 'flac'].includes(ext)) return 'fas fa-file-audio';
+            
+            return 'fas fa-file';
+        }
+        
+        function showToast(message) {
+            toast.textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+    </script>
 </body>
 </html>
+            
