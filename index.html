@@ -3,25 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZIP File Download</title>
+    <title>Download APK</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <h1>Download ZIP File</h1>
+        <h1>Download Our App</h1>
         
-        <!-- Method 1: Direct download link -->
-        <a href="files/your-file.zip" download class="download-button">
-            Download ZIP File
-        </a>
-        
-        <!-- Method 2: Button with JavaScript -->
-        <button id="downloadBtn" class="download-button">
-            Download ZIP File
-        </button>
-        
-        <!-- Method 3: Auto-download area -->
-        <div id="autoDownload"></div>
+        <div class="app-info">
+            <div class="app-icon">📱</div>
+            <h2>My Awesome App</h2>
+            <p class="version">Version 1.0.0</p>
+            <p class="file-size">File size: ~25 MB</p>
+        </div>
+
+        <!-- Security Warning -->
+        <div class="warning">
+            <h3>⚠️ Download Notice</h3>
+            <p>Google Drive may show a warning page. Click "Download anyway" to proceed.</p>
+        </div>
+
+        <!-- Download Methods -->
+        <div class="download-options">
+            <button id="downloadBtn" class="download-button">
+                📥 Download APK Now
+            </button>
+            
+            <button id="openDriveBtn" class="drive-button">
+                🔗 Open Google Drive Page
+            </button>
+            
+            <a href="https://drive.google.com/uc?export=download&id=1xlgBt350U5xLTxA0eXbbTuGr9XAaHvH_" 
+               class="download-link" 
+               target="_blank"
+               id="directLink">
+                Direct Download Link
+            </a>
+        </div>
+
+        <!-- Google Drive Instructions -->
+        <div class="instructions">
+            <h3>Download Instructions:</h3>
+            <ol>
+                <li>Click any download button above</li>
+                <li>Google Drive will show a warning page</li>
+                <li>Click "Download anyway" in the top right corner</li>
+                <li>The APK file will start downloading</li>
+            </ol>
+        </div>
+
+        <!-- Status Message -->
+        <div id="statusMessage" class="status-message"></div>
     </div>
 
     <script src="script.js"></script>
