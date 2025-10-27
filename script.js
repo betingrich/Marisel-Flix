@@ -7,8 +7,8 @@ document.getElementById('downloadBtn').addEventListener('click', function() {
 function autoDownloadZip() {
     setTimeout(() => {
         const link = document.createElement('a');
-        link.href = 'files/your-file.zip';
-        link.download = 'your-file.zip';
+        link.href = 'files/app-release.zip';
+        link.download = 'app-release.zip';
         link.style.display = 'none';
         document.body.appendChild(link);
         link.click();
